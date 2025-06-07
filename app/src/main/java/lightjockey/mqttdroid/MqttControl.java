@@ -199,12 +199,7 @@ public class MqttControl extends BaseObservable implements Serializable {
             return MathUtils.clamp(value, getValueMin(), getValueMax());
         }
         public void setValue(float value) {
-            if (value < getValueMin())
-                this.value = getValueMin();
-            else if (value > getValueMax())
-                this.value = getValueMax();
-            else
-                this.value = value;
+            this.value = MathUtils.clamp(value, getValueMin(), getValueMax());
         }
 
         public float getValueReadable() {
