@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.service.controls.DeviceTypes;
 
 import androidx.annotation.NonNull;
+import androidx.core.math.MathUtils;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.room.ColumnInfo;
@@ -195,7 +196,7 @@ public class MqttControl extends BaseObservable implements Serializable {
         public String payload = "";
 
         public float getValue() {
-            return this.value;
+            return MathUtils.clamp(value, getValueMin(), getValueMax());
         }
         public void setValue(float value) {
             if (value < getValueMin())
@@ -207,7 +208,7 @@ public class MqttControl extends BaseObservable implements Serializable {
         }
 
         public float getValueReadable() {
-            return getValueShowPercentage() ? getValuePercentage() : this.value;
+            return getValueShowPercentage() ? getValuePercentage() : getValue();
         }
         public void setValueReadable(float valueReadable) {
             if (getValueShowPercentage())
@@ -217,7 +218,7 @@ public class MqttControl extends BaseObservable implements Serializable {
         }
 
         private int getValuePercentage() {
-            return (int)((this.value - getValueMin()) / (getValueMax() - getValueMin()) * 100);
+            return (int)((getValue() - getValueMin()) / (getValueMax() - getValueMin()) * 100);
         }
     }
     @Ignore
