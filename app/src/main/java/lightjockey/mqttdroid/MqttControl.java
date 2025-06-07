@@ -217,7 +217,7 @@ public class MqttControl extends BaseObservable implements Serializable {
         }
 
         private int getValuePercentage() {
-            return (int)(this.value / getValueMax() * 100);
+            return (int)((this.value - getValueMin()) / (getValueMax() - getValueMin()) * 100);
         }
     }
     @Ignore
