@@ -79,6 +79,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui:2.7.5")
     implementation("androidx.preference:preference:1.2.1")
     implementation("io.reactivex.rxjava3:rxjava:3.1.8")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     annotationProcessor("androidx.room:room-compiler:2.6.0")
     implementation("androidx.room:room-runtime:2.6.0")
     testImplementation("junit:junit:4.13.2")
