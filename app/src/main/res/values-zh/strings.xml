@@ -1,0 +1,99 @@
+<resources>
+    <string name="app_name">MqttDroid</string>
+    <string name="title_controls">控制</string>
+    <string name="title_logs">日志</string>
+    <string name="title_settings">设置</string>
+
+    <string name="add_control">添加新控制</string>
+    <string name="add_control_edit">编辑 %1$s</string>
+    <string name="control_prop_name">名称</string>
+    <string name="control_prop_subtitle">副标题</string>
+    <string name="control_prop_group">分组</string>
+    <string name="control_prop_type">类型</string>
+    <string name="control_prop_flavour">样式</string>
+    <string name="control_prop_gauge_topic">仪表主题</string>
+    <string name="control_prop_state_on_payload">开启载荷</string>
+    <string name="control_prop_state_off_payload">关闭载荷</string>
+    <string name="control_prop_value_min">最小值</string>
+    <string name="control_prop_value_max">最大值</string>
+    <string name="control_prop_value_step">步进</string>
+
+    <string name="control_type_trigger">触发器</string>
+    <string name="control_type_toggle">开关</string>
+    <string name="control_type_range">范围</string>
+    <string name="control_type_togglerange">开关范围</string>
+    <string name="control_type_gauge">仪表</string>
+
+    <string name="control_flavour_switch">开关</string>
+    <string name="control_flavour_light">灯光</string>
+    <string name="control_flavour_outlet">插座</string>
+    <string name="control_flavour_thermostat">恒温器</string>
+    <string name="control_flavour_custom">自定义</string>
+
+    <string name="control_topic_qos_0">0 (最多一次)</string>
+    <string name="control_topic_qos_1">1 (至少一次)</string>
+    <string name="control_topic_qos_2">2 (仅一次)</string>
+
+    <string name="dialog_delete_control_title_noname">删除控制？</string>
+    <string name="dialog_delete_control_title_hasname">删除 %1$s？</string>
+    <string name="dialog_delete_control_body">您确定要删除此控制吗？\n\n您还需要从设备控制中手动移除它</string>
+
+    <string name="pref_cat_mqtt_broker">MQTT 代理</string>
+    <string name="pref_cat_backup">备份控制</string>
+    <string name="pref_cat_info">信息</string>
+    <string name="pref_cat_language">语言</string>
+
+    <string name="pref_key_mqtt_broker_host">mqtt_broker_host</string>
+    <string name="pref_key_mqtt_broker_port">mqtt_broker_port</string>
+    <string name="pref_key_mqtt_client_id">mqtt_client_id</string>
+    <string name="pref_key_mqtt_broker_tls">mqtt_broker_tls</string>
+    <string name="pref_key_mqtt_broker_tls_validate">mqtt_broker_tls_validate</string>
+    <string name="pref_key_mqtt_client_use_auth">mqtt_client_use_auth</string>
+    <string name="pref_key_mqtt_client_auth_username">mqtt_client_auth_username</string>
+    <string name="pref_key_mqtt_client_auth_password">mqtt_client_auth_password</string>
+    <string name="pref_key_mqtt_broker_test">mqtt_broker_test</string>
+    <string name="pref_key_backup_save">backup_save</string>
+    <string name="pref_key_backup_restore">backup_restore</string>
+    <string name="pref_key_info_github">info_github</string>
+    <string name="pref_key_language">app_language</string>
+
+    <string name="pref_title_mqtt_broker_host">主机</string>
+    <string name="pref_title_mqtt_broker_port">端口</string>
+    <string name="pref_title_mqtt_client_id">客户端 ID</string>
+    <string name="pref_title_mqtt_broker_tls">使用 SSL/TLS</string>
+    <string name="pref_title_mqtt_broker_tls_validate">验证证书</string>
+    <string name="pref_title_mqtt_client_use_auth">使用凭据</string>
+    <string name="pref_title_mqtt_client_auth_username">用户名</string>
+    <string name="pref_title_mqtt_client_auth_password">密码</string>
+    <string name="pref_title_mqtt_broker_test">测试连接</string>
+    <string name="pref_title_backup_save">备份到代理</string>
+    <string name="pref_title_backup_restore">从代理恢复</string>
+    <string name="pref_title_info_github">MqttDroid on GitHub</string>
+    <string name="pref_title_language">语言</string>
+
+    <string name="pref_sum_mqtt_client_id">代理用于识别此客户端的标识符。如果未设置，将默认为 \"mqttdroid\"</string>
+    <string name="pref_sum_mqtt_broker_tls_validate">如果启用，代理发送的证书必须由受信任的 CA 签名</string>
+    <string name="pref_sum_broker_test">检查 MqttDroid 是否可以使用上面提供的设置连接到代理</string>
+    <string name="pref_sum_backup_save">将控制备份为 MQTT 代理上的保留消息</string>
+    <string name="pref_sum_backup_restore">从之前的备份恢复控制</string>
+    <string name="pref_sum_info_github">提交: %1$s</string>
+    <string name="pref_sum_language">选择应用语言</string>
+
+    <string name="icd_title">选择自定义图标</string>
+    
+    <string name="language_english">English</string>
+    <string name="language_chinese">中文</string>
+    <string name="language_system">跟随系统</string>
+    
+    <array name="language_entries">
+        <item>@string/language_system</item>
+        <item>@string/language_english</item>
+        <item>@string/language_chinese</item>
+    </array>
+    
+    <array name="language_values">
+        <item>system</item>
+        <item>en</item>
+        <item>zh</item>
+    </array>
+</resources>
