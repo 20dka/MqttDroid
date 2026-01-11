@@ -17,6 +17,8 @@ import com.maltaisn.icondialog.pack.IconPack;
 import com.maltaisn.icondialog.pack.IconPackLoader;
 import com.maltaisn.iconpack.defaultpack.IconPackDefault;
 
+import lightjockey.mqttdroid.ui.helpers.LocaleHelper;
+
 public class MqttDroidApp extends Application {
     public static final String TAG = "MqttDroid";
     public static MqttDroidApp appInstance;
@@ -37,6 +39,9 @@ public class MqttDroidApp extends Application {
         appContext = getApplicationContext();
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(appContext);
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        
+        // Apply language setting
+        applyLanguage();
 
         repository = new AppRepository(this);
         notificationManager = NotificationManagerCompat.from(appContext);
@@ -79,5 +84,10 @@ public class MqttDroidApp extends Application {
     private void loadIconPack() {
         iconPackLoader = new IconPackLoader(getBaseContext());
         iconPack = IconPackDefault.createDefaultIconPack(iconPackLoader);
+    }
+
+    private void applyLanguage() {
+        // Language will be applied in each Activity's attachBaseContext
+        // This method is kept for potential future use
     }
 }
