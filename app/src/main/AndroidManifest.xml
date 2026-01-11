@@ -20,6 +20,9 @@
         </activity>
         <activity
             android:name=".ui.controls.ControlActivity" />
+        <activity
+            android:name=".ui.logs.TopicListActivity"
+            android:parentActivityName=".MainActivity" />
 
         <service
             android:name=".MqttDroidControlsService"
