@@ -2,19 +2,24 @@ plugins {
     id("com.android.application")
 }
 
+fun safeGitCommand(project: Project, vararg args: String, defaultValue: String): String {
+    return runCatching {
+        val result = project.providers.exec {
+            commandLine("git", *args)
+        }
+        result.standardOutput.asText.get().trim()
+    }.getOrElse { defaultValue }
+}
+
 android {
     // Gets the latest git commit hash for autoversioning
-    val gitCommitHash = providers.exec {
-        commandLine("git", "rev-parse", "--short", "HEAD")
-    }.standardOutput.asText.get().trim()
+    val gitCommitHash = safeGitCommand(project, "rev-parse", "--short", "HEAD", defaultValue = "unknown")
     // Gets the total number of commits for autoversioning
-    val gitCommitCount = providers.exec {
-        commandLine("git", "rev-list", "--count", "HEAD")
-    }.standardOutput.asText.get().trim().toInt()
+    val gitCommitCount = runCatching {
+        safeGitCommand(project, "rev-list", "--count", "HEAD", defaultValue = "1").toInt()
+    }.getOrElse { 1 }
     // Gets the latest git tag for autoversioning
-    val gitLatestTag = providers.exec {
-        commandLine("git", "describe", "--tags", "--abbrev=0")
-    }.standardOutput.asText.get().trim()
+    val gitLatestTag = safeGitCommand(project, "describe", "--tags", "--abbrev=0", defaultValue = "1.0.0")
 
     namespace = "lightjockey.mqttdroid"
     compileSdk = 34
