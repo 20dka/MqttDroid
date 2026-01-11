@@ -20,6 +20,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -103,13 +104,9 @@ public class LogsFragment extends Fragment {
                     selectedTopic = "all";
                     applyFilter();
                 } else if (!topic.isEmpty()) {
-                    // Real-time filter and save topic
+                    // Real-time filter only, don't save until Enter/Done is pressed
                     selectedTopic = topic;
                     applyFilter();
-                    // Auto-save topic
-                    TopicFilterHelper.saveTopic(getContext(), topic);
-                    // Update recent topics display (show only recent ones)
-                    updateRecentTopics();
                 }
             }
 
@@ -144,14 +141,8 @@ public class LogsFragment extends Fragment {
             return false;
         });
 
-        // Setup clear all button
-        binding.buttonClearAll.setOnClickListener(v -> {
-            TopicFilterHelper.clearAllTopics(getContext());
-            topicFilterAdapter.setTopics(new ArrayList<>());
-            selectedTopic = "all";
-            binding.inputTopic.setText("");
-            applyFilter();
-        });
+        // Setup share logs button
+        binding.buttonShareLogs.setOnClickListener(v -> shareLogs());
         
         // Setup view all topics button
         binding.buttonViewAllTopics.setOnClickListener(v -> {
@@ -231,6 +222,57 @@ public class LogsFragment extends Fragment {
             logAdapter.setLogs(Collections.singletonList(getString(R.string.no_logs_yet)));
         } else {
             logAdapter.setLogs(filtered);
+        }
+    }
+
+    private void shareLogs() {
+        new Thread(() -> {
+            try {
+                // Get filtered logs
+                List<String> filteredLogs = TopicFilterHelper.filterLogsByTopic(allLogLines, selectedTopic);
+                
+                // Parse logs
+                List<LogCsvExporter.LogEntry> entries = LogCsvExporter.parseLogs(filteredLogs);
+                
+                if (entries.isEmpty()) {
+                    handler.post(() -> {
+                        android.widget.Toast.makeText(getContext(), R.string.no_logs_to_share, android.widget.Toast.LENGTH_SHORT).show();
+                    });
+                    return;
+                }
+                
+                // Export to CSV
+                File csvFile = LogCsvExporter.exportToCsv(getContext(), entries, selectedTopic);
+                
+                // Share file on main thread
+                handler.post(() -> {
+                    shareCsvFile(csvFile);
+                });
+            } catch (IOException e) {
+                handler.post(() -> {
+                    android.widget.Toast.makeText(getContext(), R.string.error_sharing_logs, android.widget.Toast.LENGTH_SHORT).show();
+                });
+            }
+        }).start();
+    }
+
+    private void shareCsvFile(File csvFile) {
+        try {
+            android.net.Uri fileUri = androidx.core.content.FileProvider.getUriForFile(
+                getContext(),
+                getContext().getPackageName() + ".fileprovider",
+                csvFile
+            );
+
+            android.content.Intent shareIntent = new android.content.Intent(android.content.Intent.ACTION_SEND);
+            shareIntent.setType("text/csv");
+            shareIntent.putExtra(android.content.Intent.EXTRA_STREAM, fileUri);
+            shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, csvFile.getName());
+            shareIntent.addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+            startActivity(android.content.Intent.createChooser(shareIntent, getString(R.string.share_logs)));
+        } catch (Exception e) {
+            android.widget.Toast.makeText(getContext(), R.string.error_sharing_logs, android.widget.Toast.LENGTH_SHORT).show();
         }
     }
 

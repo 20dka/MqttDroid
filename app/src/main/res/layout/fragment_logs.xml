@@ -79,11 +79,11 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_clear_all"
+                android:id="@+id/button_share_logs"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/clear_all_topics"
+                android:text="@string/share_logs"
                 style="@style/Widget.MaterialComponents.Button.TextButton" />
 
         </LinearLayout>

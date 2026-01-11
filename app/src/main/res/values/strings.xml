@@ -89,6 +89,9 @@
     <string name="remove_topic">Remove topic</string>
     <string name="view_all_topics">View All Topics</string>
     <string name="all_topics">All Topics</string>
+    <string name="share_logs">Share Logs</string>
+    <string name="no_logs_to_share">No logs to share</string>
+    <string name="error_sharing_logs">Error sharing logs</string>
     
     <string name="language_english">English</string>
     <string name="language_chinese">中文</string>
