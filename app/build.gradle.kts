@@ -2,19 +2,24 @@ plugins {
     id("com.android.application")
 }
 
+fun safeGitCommand(project: Project, vararg args: String, defaultValue: String): String {
+    return runCatching {
+        val result = project.providers.exec {
+            commandLine("git", *args)
+        }
+        result.standardOutput.asText.get().trim()
+    }.getOrElse { defaultValue }
+}
+
 android {
     // Gets the latest git commit hash for autoversioning
-    val gitCommitHash = providers.exec {
-        commandLine("git", "rev-parse", "--short", "HEAD")
-    }.standardOutput.asText.get().trim()
+    val gitCommitHash = safeGitCommand(project, "rev-parse", "--short", "HEAD", defaultValue = "unknown")
     // Gets the total number of commits for autoversioning
-    val gitCommitCount = providers.exec {
-        commandLine("git", "rev-list", "--count", "HEAD")
-    }.standardOutput.asText.get().trim().toInt()
+    val gitCommitCount = runCatching {
+        safeGitCommand(project, "rev-list", "--count", "HEAD", defaultValue = "1").toInt()
+    }.getOrElse { 1 }
     // Gets the latest git tag for autoversioning
-    val gitLatestTag = providers.exec {
-        commandLine("git", "describe", "--tags", "--abbrev=0")
-    }.standardOutput.asText.get().trim()
+    val gitLatestTag = safeGitCommand(project, "describe", "--tags", "--abbrev=0", defaultValue = "1.0.0")
 
     namespace = "lightjockey.mqttdroid"
     compileSdk = 34
@@ -50,8 +55,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_9
-        targetCompatibility = JavaVersion.VERSION_1_9
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
         buildConfig = true
@@ -74,6 +79,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui:2.7.5")
     implementation("androidx.preference:preference:1.2.1")
     implementation("io.reactivex.rxjava3:rxjava:3.1.8")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     annotationProcessor("androidx.room:room-compiler:2.6.0")
     implementation("androidx.room:room-runtime:2.6.0")
     testImplementation("junit:junit:4.13.2")

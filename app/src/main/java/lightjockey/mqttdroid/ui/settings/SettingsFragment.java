@@ -1,5 +1,6 @@
 package lightjockey.mqttdroid.ui.settings;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
@@ -7,6 +8,7 @@ import android.text.InputType;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.EditTextPreference;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -14,6 +16,7 @@ import lightjockey.mqttdroid.BuildConfig;
 import lightjockey.mqttdroid.MqttDroidApp;
 import lightjockey.mqttdroid.MqttClient;
 import lightjockey.mqttdroid.R;
+import lightjockey.mqttdroid.ui.helpers.LocaleHelper;
 import lightjockey.mqttdroid.ui.helpers.Utils;
 
 public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -29,6 +32,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         updateDynamicPrefs();
 
         bindClickablePrefs();
+        bindLanguagePreference();
     }
 
     @Override
@@ -42,6 +46,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         if (key.equals(MqttDroidApp.appContext.getString(R.string.pref_key_mqtt_broker_tls)) ||
             key.equals(MqttDroidApp.appContext.getString(R.string.pref_key_mqtt_client_use_auth)))
             updateDynamicPrefs();
+
+        // Handle language change
+        if (key.equals(MqttDroidApp.appContext.getString(R.string.pref_key_language))) {
+            restartActivity();
+        }
     }
 
     private static void setPrefEnabled(Preference pref, boolean enabled) {
@@ -81,5 +90,22 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         if (pref == null)
             return;
         pref.setOnPreferenceClickListener(onClickHandler);
+    }
+
+    private void bindLanguagePreference() {
+        ListPreference languagePref = findPreference(MqttDroidApp.appContext.getString(R.string.pref_key_language));
+        if (languagePref != null) {
+            String currentLanguage = LocaleHelper.getLanguageCode(getContext());
+            languagePref.setValue(currentLanguage);
+            languagePref.setSummary(LocaleHelper.getCurrentLanguageDisplayName(getContext()));
+        }
+    }
+
+    private void restartActivity() {
+        if (getActivity() != null) {
+            Intent intent = getActivity().getIntent();
+            getActivity().finish();
+            startActivity(intent);
+        }
     }
 }

@@ -41,6 +41,7 @@
     <string name="pref_cat_mqtt_broker">MQTT Broker</string>
     <string name="pref_cat_backup">Backup Controls</string>
     <string name="pref_cat_info">Info</string>
+    <string name="pref_cat_language">Language</string>
 
     <string name="pref_key_mqtt_broker_host">mqtt_broker_host</string>
     <string name="pref_key_mqtt_broker_port">mqtt_broker_port</string>
@@ -54,6 +55,7 @@
     <string name="pref_key_backup_save">backup_save</string>
     <string name="pref_key_backup_restore">backup_restore</string>
     <string name="pref_key_info_github">info_github</string>
+    <string name="pref_key_language">app_language</string>
 
     <string name="pref_title_mqtt_broker_host">Host</string>
     <string name="pref_title_mqtt_broker_port">Port</string>
@@ -67,6 +69,7 @@
     <string name="pref_title_backup_save">Backup on broker</string>
     <string name="pref_title_backup_restore">Restore from broker</string>
     <string name="pref_title_info_github">MqttDroid on GitHub</string>
+    <string name="pref_title_language">Language</string>
 
     <string name="pref_sum_mqtt_client_id">Used by the broker to identify this client. If not set, will default to \"mqttdroid\"</string>
     <string name="pref_sum_mqtt_broker_tls_validate">If enabled the certificate the broker sends must be signed by a trusted CA</string>
@@ -74,6 +77,35 @@
     <string name="pref_sum_backup_save">Backup controls as a retained message on the MQTT broker</string>
     <string name="pref_sum_backup_restore">Restore controls from a previous backup</string>
     <string name="pref_sum_info_github">Commit: %1$s</string>
+    <string name="pref_sum_language">Choose application language</string>
 
     <string name="icd_title">Select Custom Icon</string>
+    
+    <string name="no_logs_yet">No logs yet</string>
+    <string name="error_loading_logs">Error loading logs</string>
+    
+    <string name="filter_by_topic">Filter by topic (type \"all\" to show all)</string>
+    <string name="clear_all_topics">Clear All Topics</string>
+    <string name="remove_topic">Remove topic</string>
+    <string name="view_all_topics">View All Topics</string>
+    <string name="all_topics">All Topics</string>
+    <string name="share_logs">Share Logs</string>
+    <string name="no_logs_to_share">No logs to share</string>
+    <string name="error_sharing_logs">Error sharing logs</string>
+    
+    <string name="language_english">English</string>
+    <string name="language_chinese">中文</string>
+    <string name="language_system">Follow System</string>
+    
+    <array name="language_entries">
+        <item>@string/language_system</item>
+        <item>@string/language_english</item>
+        <item>@string/language_chinese</item>
+    </array>
+    
+    <array name="language_values">
+        <item>system</item>
+        <item>en</item>
+        <item>zh</item>
+    </array>
 </resources>

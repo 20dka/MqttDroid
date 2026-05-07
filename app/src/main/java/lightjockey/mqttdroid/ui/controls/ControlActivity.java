@@ -1,6 +1,7 @@
 package lightjockey.mqttdroid.ui.controls;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ import lightjockey.mqttdroid.MqttControl;
 import lightjockey.mqttdroid.MqttControlsViewModel;
 import lightjockey.mqttdroid.R;
 import lightjockey.mqttdroid.databinding.ActivityControlBinding;
+import lightjockey.mqttdroid.ui.helpers.LocaleHelper;
 import lightjockey.mqttdroid.ui.helpers.MaterialSpinnerAdapter;
 import lightjockey.mqttdroid.ui.helpers.Utils;
 
@@ -57,6 +59,13 @@ public class ControlActivity extends AppCompatActivity implements IconDialog.Cal
 
     public boolean canDelete;
     public boolean isNew;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        String languageCode = LocaleHelper.getLanguageCode(newBase);
+        Context context = LocaleHelper.setLocale(newBase, languageCode);
+        super.attachBaseContext(context);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
