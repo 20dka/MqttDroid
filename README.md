@@ -1,6 +1,9 @@
 # MqttDroid 🤖📡
 ![logo](./images/icon-192.png)
 
+## Changes in this fork
+This fork simply combines all changes from EliteTK and wangwendong1024
+
 ## Overview and Purpose
 MqttDroid is an Android app that aims to provide MQTT support to Android's built-in [device controls](https://developer.android.com/develop/ui/views/device-control) (Android 11+).
 
